@@ -1,9 +1,9 @@
-'use client'
-
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { ExternalLink, Github, ChevronRight } from 'lucide-react'
+import Image from 'next/image'
+import { getAssetPath } from '@/lib/utils'
 
 interface ProjectDetails {
   problem: string
@@ -28,8 +28,6 @@ interface ProjectCardProps {
   project: Project
 }
 
-import Image from 'next/image'
-
 export function ProjectCard({ project }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false)
   const router = useRouter()
@@ -49,7 +47,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         {/* Image Container */}
         <div className="relative overflow-hidden bg-muted aspect-video">
           <Image
-            src={project.image}
+            src={getAssetPath(project.image)}
             alt={project.title}
             fill
             className="object-cover group-hover:scale-110 transition-transform duration-700"

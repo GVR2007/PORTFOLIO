@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { ArrowLeft, Github, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
+import { getAssetPath } from '@/lib/utils'
 
 import { projects as projectsData } from '@/lib/projects'
 
@@ -58,7 +59,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
       {/* Hero Image */}
       <div className="w-full h-80 md:h-96 overflow-hidden">
         <img
-          src={project.image}
+          src={getAssetPath(project.image)}
           alt={project.title}
           className="w-full h-full object-cover"
         />
@@ -140,7 +141,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
             Interested in what we can build together?
           </p>
           <Button size="lg" asChild>
-            <a href="/#contact">
+            <a href={getAssetPath("/#contact")}>
               Get in Touch
               <ExternalLink className="w-4 h-4 ml-2" />
             </a>

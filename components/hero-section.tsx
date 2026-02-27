@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { Github, Linkedin, Download } from 'lucide-react'
 import Image from 'next/image'
+import { getAssetPath } from '@/lib/utils'
 
 export function HeroSection() {
   return (
@@ -49,7 +50,7 @@ export function HeroSection() {
             {/* Premium CTA Logic */}
             <div className="flex flex-wrap items-center gap-8 pt-6">
               <Button asChild size="lg" className="h-16 px-10 rounded-full bg-foreground text-background hover:bg-foreground/90 shadow-2xl shadow-foreground/20 transition-all hover:scale-105 active:scale-95 text-lg font-black tracking-tight">
-                <a href="/resume.pdf" download>
+                <a href={getAssetPath("/resume.pdf")} download>
                   <Download className="w-6 h-6 mr-3" />
                   View Resume
                 </a>
@@ -82,7 +83,7 @@ export function HeroSection() {
 
               <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] border border-white/10">
                 <Image
-                  src="/profile.jpg"
+                  src={getAssetPath("/profile.jpg")}
                   alt="Garrepalli Varshith"
                   fill
                   priority
