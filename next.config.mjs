@@ -1,3 +1,5 @@
+const isProd = process.env.NODE_ENV === 'production';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: {
@@ -7,8 +9,8 @@ const nextConfig = {
     unoptimized: true,
   },
   output: 'export',
-  basePath: '/PORTFOLIO',
-  assetPrefix: '/PORTFOLIO/',
+  basePath: isProd ? '/PORTFOLIO' : '',
+  assetPrefix: isProd ? '/PORTFOLIO/' : '',
 };
 
 
