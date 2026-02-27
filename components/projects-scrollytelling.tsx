@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button'
 import { projects } from '@/lib/projects'
 import Image from 'next/image'
 
+import { getAssetPath } from '@/lib/utils'
+
 function ProjectCard({ project, isActive, index }: { project: typeof projects[0]; isActive: boolean; index: number }) {
   return (
     <div className={`transition-all duration-1000 ${isActive ? 'opacity-100' : 'opacity-10'}`}>
@@ -16,20 +18,22 @@ function ProjectCard({ project, isActive, index }: { project: typeof projects[0]
           className={`relative group transform transition-all duration-1000 ${isActive ? 'translate-x-0 scale-100' : index % 2 === 0 ? '-translate-x-20 scale-90' : 'translate-x-20 scale-90'
             }`}
         >
-          <div className="relative aspect-video rounded-[2rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] border border-white/10">
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              className="object-cover group-hover:scale-110 transition-transform duration-1000"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent opacity-80" />
+          <Link href={`/project/${project.id}`}>
+            <div className="relative aspect-video rounded-[2rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] border border-white/10 cursor-pointer">
+              <Image
+                src={getAssetPath(project.image)}
+                alt={project.title}
+                fill
+                className="object-cover group-hover:scale-110 transition-transform duration-1000"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent opacity-80" />
 
-            {/* Project Number Floating */}
-            <div className="absolute top-8 left-8 p-4 bg-background/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
-              <span className="text-4xl font-black text-primary/80 tracking-tighter">0{index + 1}</span>
+              {/* Project Number Floating */}
+              <div className="absolute top-8 left-8 p-4 bg-background/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
+                <span className="text-4xl font-black text-primary/80 tracking-tighter">0{index + 1}</span>
+              </div>
             </div>
-          </div>
+          </Link>
 
           {/* Accent decoration */}
           <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/20 blur-3xl rounded-full -z-10 group-hover:scale-150 transition-transform duration-1000" />
@@ -41,9 +45,11 @@ function ProjectCard({ project, isActive, index }: { project: typeof projects[0]
             }`}
         >
           <div className="space-y-6">
-            <h3 className="text-5xl lg:text-7xl font-black text-foreground tracking-tighter leading-none">
-              {project.title.split('—')[0]}
-            </h3>
+            <Link href={`/project/${project.id}`} className="block group">
+              <h3 className="text-5xl lg:text-7xl font-black text-foreground tracking-tighter leading-none group-hover:text-primary transition-colors">
+                {project.title.split('—')[0]}
+              </h3>
+            </Link>
 
             <p className="text-xl text-muted-foreground font-light leading-relaxed max-w-xl">
               {project.problem}
@@ -78,22 +84,33 @@ function ProjectCard({ project, isActive, index }: { project: typeof projects[0]
           </div>
 
           {/* Strategic Actions */}
-          <div className="flex items-center gap-6 pt-8">
+          <div className="flex flex-wrap items-center gap-6 pt-8">
             <Button asChild className="h-14 px-8 rounded-2xl bg-foreground text-background font-bold text-base hover:scale-105 transition-transform active:scale-95 shadow-xl shadow-foreground/10">
-              <a href={project.liveDemo} target="_blank" rel="noopener noreferrer">
-                Explore Live <ExternalLink className="ml-2 w-4 h-4" />
-              </a>
+              <Link href={`/project/${project.id}`}>
+                View Details <ArrowRight className="ml-2 w-4 h-4" />
+              </Link>
             </Button>
 
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 text-sm font-black uppercase tracking-widest text-muted-foreground hover:text-foreground transition-all group"
-            >
-              <Github className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              Source Code
-            </a>
+            <div className="flex items-center gap-6">
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 text-sm font-black uppercase tracking-widest text-muted-foreground hover:text-foreground transition-all group"
+              >
+                <Github className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                Source
+              </a>
+              <a
+                href={project.liveDemo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 text-sm font-black uppercase tracking-widest text-muted-foreground hover:text-foreground transition-all group"
+              >
+                <ExternalLink className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                Live
+              </a>
+            </div>
           </div>
         </div>
       </div>
